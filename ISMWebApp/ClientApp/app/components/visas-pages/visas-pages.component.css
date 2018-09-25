@@ -1,0 +1,26 @@
+:host {
+    display: block;
+}
+
+#image-wapper {
+    background-image: url("../../../assets/img/379714.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#image-wapper > :first-child {
+    background-color: rgba(255, 255, 255, 0.479);
+    margin-bottom: 5em;
+    color: #000;
+}
+
+.app-header {
+    height: 40vh;
+    background-size: cover;
+}
+
+@media (max-width: 960px) {
+    .app-header {
+        height: auto;
+    }
+}

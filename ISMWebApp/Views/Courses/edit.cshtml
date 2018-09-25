@@ -1,0 +1,107 @@
+@model ISMWebApp.Models.Course;
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+<h2>Edit @Model.Name</h2>
+
+<hr>
+<form asp-action="Update" method="POST" id="form">
+    <div class="row">
+        <div class="col-md-6">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id"></input>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Level" class="control-label"></label>
+                <input asp-for="Level" class="form-control" />
+                <span asp-validation-for="Level" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Code" class="control-label"></label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImgUrl" class="control-label"></label>
+                <select asp-for="ImgUrl" list="urls" class="form-control" id="urls" required/>
+                </select>
+                <span asp-validation-for="ImgUrl" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Overview" class="control-label"></label>
+        <textarea asp-for="Overview" class="form-control"></textarea>
+        <span asp-validation-for="Overview" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EntryRequirements" class="control-label"></label>
+        <textarea asp-for="EntryRequirements" class="form-control"></textarea>
+        <span asp-validation-for="EntryRequirements" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Careers" class="control-label"></label>
+        <textarea asp-for="Careers" class="form-control"></textarea>
+        <span asp-validation-for="Careers" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $().ready(function() {
+            // $('#Overview').froalaEditor();
+            // $('#EntryRequirements').froalaEditor();
+            // $('#Careers').froalaEditor();
+            $("#form").validate();
+            insertImages();
+        });
+
+        ClassicEditor
+            .create( document.querySelector( '#Overview' ) )
+            .catch( error => {
+                console.error( error );
+            });
+        ClassicEditor
+            .create( document.querySelector( '#EntryRequirements' ) )
+            .catch( error => {
+                console.error( error );
+            });
+        ClassicEditor
+            .create( document.querySelector( '#Careers' ) )
+            .catch( error => {
+                console.error( error );
+            });
+
+
+        function insertImages() {
+            $('#urls').empty();
+            var request = $.ajax({
+                method: "GET",
+                url: `/admin/Image/api/`
+            });
+            
+            request.done(function(data){
+                console.log(data);
+                $.each(data, function(i, d) {
+                    $('#urls').append(`<option value="${d.url}">${d.name}</option>`);
+                });
+            });
+        }
+        
+    </script>
+}

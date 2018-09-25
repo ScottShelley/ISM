@@ -1,0 +1,33 @@
+<header class="app-header" [ngStyle]="{ 'background-image': 'url(' + visa.imgUrl +')'}">
+  <div class="container">
+    <h1 class="text-center header-h1">{{ visa.title }}</h1>
+    <p class="text-center">{{ visa.description }}</p>
+  </div>
+  
+</header>
+
+<div id="image-wapper">
+  <div class="container">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/migration-services">Visas</a></li>
+        <li class="breadcrumb-item active">{{ visa.title }}</li>
+    </ol>
+
+    <section class="section-visas">
+      <div class="row">
+        <div class="col-md-12" *ngFor="let item of visa.visas; let i = index">
+          <h3>
+            <button class="btn btn-outline-primary btn-lg btn-block" type="button" (click)="isSelected[i] =! isSelected[i]">
+              <img class="img-auto" [src]="item.imgUrl" alt="Visas icon images"> {{ item.title }}
+            </button> 
+          </h3>
+          <div *ngIf="isSelected[i]" [innerHTML]="item.html">
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <p>&nbsp;</p>
+</div>

@@ -1,0 +1,32 @@
+header {
+    height: 40vh;
+    background-image: url("../../../../assets/img/6cb9d67272394ac18a9856724ffaa614.jpg");
+    background-size: contain;
+    background-position: top ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+main {
+    background-image: url("../../../../assets/img/colorful-1974699_1920.png");
+    background-size: 100% auto;
+    /* background-attachment: fixed; */
+    background-position: top;
+    padding-bottom: 3em;
+    height: 200vh;
+}
+
+.contact-main {
+    margin-top: 0.5em;
+}
+
+.skype {
+    padding-top: 2em;
+    background-color: rgba(255, 255, 255, 0.89);
+    color: #000;
+}
+
+.location .col-md-4 {
+    padding-left: 0;
+    padding-right: 0;
+}

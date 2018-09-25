@@ -1,0 +1,92 @@
+<header *ngIf="course">
+  <div class="container">
+    <div class="single-caption">
+      <h1 class="">{{ course.name }}</h1>
+      <p class="lead">{{ course.description }}</p>
+    </div>
+  </div>
+</header>
+
+<div class="container" *ngIf="course">
+  <div class="row">
+    <div class="col-md-8">
+      <main>
+        <h2 class="text-center">Overview</h2>
+        <div [innerHtml]="course.overview">
+
+        </div>
+        <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut aperiam doloremque soluta, nulla praesentium blanditiis eos maiores cum asperiores architecto inventore qui! Assumenda, quam voluptatum. Eveniet consequuntur pariatur ipsum ea!</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab esse amet, animi vel odio architecto delectus ad corrupti molestias quod earum. Maxime velit corrupti voluptas autem repellendus reprehenderit molestiae perspiciatis.</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur ipsam veritatis neque nisi! Ullam voluptate harum architecto assumenda, iure corrupti animi ad, enim dolor deleniti reiciendis. Quaerat alias beatae ipsum!</p> -->
+      </main>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <button class="nav-link" [class.active]="isTab[0]" (click)="changeTab(0)">Institutes</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" [class.active]="isTab[1]" (click)="changeTab(1)">Entry Requirements</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" [class.active]="isTab[2]" (click)="changeTab(2)">Qualification Description</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" [class.active]="isTab[3]" (click)="changeTab(3)">Careers</button>
+        </li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade" [class.active]="isTab[0]" [class.show]="isTab[0]">
+          <div class="institutions" *ngFor="let item of course.courseInstitute; let i = index">
+            <div class="institute">
+              <button type="button" class="btn btn-link btn-lg btn-block" (click)="isInstitutes[i] =! isInstitutes[i]">{{ item.institute.provider }} <span class="float-right"><i class="fas fa-angle-down"></i></span></button>
+              <div class="institute-details" *ngIf="isInstitutes[i]">
+                <table class="table table-hover">
+                  <thead>
+                    <th>Duration (Weeks)</th>
+                    <th>Tuition Fee</th>
+                    <th>Non Tuition Fee</th>
+                    <th>Total Cost</th>
+                  </thead>
+                  <tbody>
+                    <tr class="table-dark">
+                      <td>{{ item.durationWeeks }}</td>
+                      <td>AUD ${{ item.tution }}</td>
+                      <td>AUD ${{ item.nonTution }}</td>
+                      <td>AUD ${{ item.total }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p class="text-center lead">Locations</p>
+                <p>NSW - The University of New England - Location owned and operated by provider</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" [class.active]="isTab[1]" [class.show]="isTab[1]" [innerHtml]="course.entryRequirements">
+        </div>
+        <div class="tab-pane fade" [class.active]="isTab[2]" [class.show]="isTab[2]" [innerHtml]="course.entryRequirements">
+        </div>
+        <div class="tab-pane fade" [class.active]="isTab[3]" [class.show]="isTab[3]" [innerHtml]="course.careers">
+        </div>
+      </div>
+      <hr>
+      <button type="button" class="btn btn-outline-info btn-lg btn-block" (click)="isEnrolPress =! isEnrolPress">Start The Enrollment Process!</button>
+      <div class="form-enroll">
+        <app-enroll-form *ngIf="isEnrolPress" [course]="course.name" [institutes]="course.courseInstitute" (cancel)="isEnrolPress = $event"></app-enroll-form>
+      </div>
+    </div>
+    <aside class="col-md-4">
+      <div class="sidebar-item">
+        <h3>Information</h3>
+        <p>Course Name: {{ course.name }}</p>
+        <p>Course Code: {{ course.code }}</p>
+        <p>Course Level: {{ course.level }}</p>
+        <p>Study Options: Full-time, Part-time</p>
+      </div>
+      <div class="sidebar-item">
+        <h3>How to get started</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod quidem asperiores cum nisi sed doloribus explicabo corrupti fugit, repudiandae laborum architecto, debitis in laboriosam aliquam, amet et. Magnam, optio accusamus.</p>
+        <button type="button" class="btn btn-outline-info" (click)="isEnrolPress =! isEnrolPress">Start Enrol Now</button>
+      </div>
+    </aside>
+  </div>
+</div>

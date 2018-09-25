@@ -1,0 +1,50 @@
+header {
+    height: 50vh;
+    background-image: url("../../../assets/img/40b9013510d1457fa38b4b385172fba4.jpg");
+    background-attachment: fixed;
+    background-position: top;
+}
+
+button {
+    color: #2FA4E7;
+}
+
+.single-caption h1 {
+    font-size: 40px;
+    font-weight: 400;
+    color:  #fff;
+}
+
+.single-caption  {
+    font-size: 16px;
+    font-weight: 400;
+    color:  #fff;
+}
+
+.sidebar-item {
+    margin-top: 1em;
+    border: 1px rgb(202, 202, 202) solid;
+    padding: 1em;
+    border-top: 3px #49c32c solid;
+}
+
+.nav-tabs .nav-item {
+    margin-bottom: 0px;
+}
+
+.institutions {
+
+}
+
+.institute {
+    /* padding: 1em; */
+    color: #2FA4E7;
+}
+
+.institute > p {
+    margin-bottom: 0;
+}
+
+.form-enroll {
+    margin: 1em 0;
+}

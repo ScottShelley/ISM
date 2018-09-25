@@ -1,0 +1,85 @@
+@model IEnumerable<ISMWebApp.Models.Location>
+@{
+    ViewData["Title"] = "Locations";
+}
+
+<h2>Locations</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="create">Create New</a>
+</p>
+
+<table id="myTable" class="table table-hover">
+    <thead>
+        <tr>
+            <th>Institute</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            @if (item.IsDeleted)
+            {
+                <tr class="table-danger">
+                    <td>@Html.DisplayFor(modelItem => item.Institute.Provider)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Street) @Html.DisplayFor(modelItem => item.Suburb), @Html.DisplayFor(modelItem => item.State) @Html.DisplayFor(modelItem => item.PostCode), @Html.DisplayFor(modelItem => item.Country)</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-info">Details</button>
+                        <button type="button" class="btn btn-outline-danger undeleteButton" data-id="@item.Id">Undelete</button>
+                    </td>
+                </tr>    
+            }
+            else
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Institute.Provider)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Street) @Html.DisplayFor(modelItem => item.Suburb), @Html.DisplayFor(modelItem => item.State) @Html.DisplayFor(modelItem => item.PostCode), @Html.DisplayFor(modelItem => item.Country)</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-info">Details</button>
+                        <button type="button" class="btn btn-outline-danger deleteButton" data-id="@item.Id">Delete</button>
+                    </td>
+                </tr> 
+            }
+            
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $().ready(function() {
+            $("#myTable").DataTable();
+        });
+
+        $(".deleteButton").click(function (d) {
+            console.log(d.target.dataset.id);
+            if (d.target.dataset.id)
+            {
+                var result = confirm("Are you sure you want to delete this!");
+                if (result)
+                {
+                    deleteRow(`/admin/delete/locations/${d.target.dataset.id}/true`);
+                }    
+            }
+        });
+
+        $(".undeleteButton").click(function (d) {
+            console.log(d.target.dataset.id);
+            if (d.target.dataset.id)
+            {
+                var result = confirm("Are you sure you want to undelete this!");
+                if (result)
+                {
+                    console.log("Yes");
+                    deleteRow(`/admin/delete/locations/${d.target.dataset.id}/false`);
+                }    
+            }
+        });
+        
+    </script>
+}

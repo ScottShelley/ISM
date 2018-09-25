@@ -1,0 +1,69 @@
+@model ISMWebApp.Models.CourseInstitute;
+@{
+    ViewData["Title"] = "Link Instute to Course";
+}
+
+<h2>Add Instute to Course</h2>
+
+<form asp-action="AddInstitute" method="POST">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="CourseId" class="control-label"></label>
+        <input asp-for="CourseId" class="form-control" readonly=""/>
+    </div>
+    <div class="form-group">
+      <label asp-for="InstitutionId">Example select</label>
+      <select class="form-control" asp-for="InstitutionId" id="institutionId">
+          <option>1ss</option>
+      </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="DurationWeeks" class="control-label"></label>
+        <input asp-for="DurationWeeks" class="form-control" />
+        <span asp-validation-for="DurationWeeks" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Tution" class="control-label"></label>
+        <input asp-for="Tution" class="form-control" />
+        <span asp-validation-for="Tution" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NonTution" class="control-label"></label>
+        <input asp-for="NonTution" class="form-control" />
+        <span asp-validation-for="NonTution" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Total" class="control-label"></label>
+        <input asp-for="Total" class="form-control" />
+        <span asp-validation-for="Total" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $().ready(function() {
+            $("#form").validate({});
+            insertInstitute();
+
+            
+        });
+
+        function insertInstitute() {
+            $('#institutionId').empty();
+            var request = $.ajax({
+                method: "GET",
+                url: "/api/institute"
+            });
+            
+            request.done(function(data){
+                $.each(data, function(i, d) {
+                    $('#institutionId').append('<option value="' + d.id + '">' + d.provider + '</option>');
+                });
+            });
+        }
+        
+    </script>
+}

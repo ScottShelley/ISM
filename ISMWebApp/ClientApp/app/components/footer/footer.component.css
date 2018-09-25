@@ -1,0 +1,7 @@
+:host footer {
+    margin-top: 2em;
+}
+
+.flex-column .active {
+    color: #000;
+}

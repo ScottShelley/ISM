@@ -1,0 +1,88 @@
+@model IEnumerable<ISMWebApp.Models.VisasPage>
+
+@{
+    ViewData["Title"] = "Visas";
+}
+
+<h2>Visas</h2>
+
+<p>
+    <a class="btn btn-primary" asp-controller="VisasCategory" asp-action="Create">Create New</a>
+</p>
+
+<table id="myTable" class="table table-hover">
+    <thead>
+        <tr>
+            <th>Tittle</th>
+            <th>Description</th>
+            <th>Image Url</th>
+            <th>Is Deleted</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td class="lead">
+                <a asp-action="Visa" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <img style="max-width: 100%;" src="@Html.DisplayFor(modelItem => item.ImgUrl)" alt="">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                <p><button type="button" class="btn btn-outline-info btn-lg btn-block">Details</button></p>
+                <p><button type="button" class="btn btn-outline-success btn-lg btn-block">Edit</button></p>
+                @if (item.IsDeleted)
+                {
+                    <p><button type="button" class="btn btn-outline-danger btn-lg btn-block">Undelete</button></p>
+                }
+                else
+                {
+                    <p><button type="button" class="btn btn-outline-danger btn-lg btn-block">Delete</button></p>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $().ready(function() {
+            $("#myTable").DataTable();
+        });
+
+        // $(".deleteButton").click(function (d) {
+        //     console.log(d.target.dataset.id);
+        //     if (d.target.dataset.id)
+        //     {
+        //         var result = confirm("Are you sure you want to delete this!");
+        //         if (result)
+        //         {
+        //             deleteRow(`/admin/delete/locations/${d.target.dataset.id}/true`);
+        //         }    
+        //     }
+        // });
+
+        // $(".undeleteButton").click(function (d) {
+        //     console.log(d.target.dataset.id);
+        //     if (d.target.dataset.id)
+        //     {
+        //         var result = confirm("Are you sure you want to undelete this!");
+        //         if (result)
+        //         {
+        //             console.log("Yes");
+        //             deleteRow(`/admin/delete/locations/${d.target.dataset.id}/false`);
+        //         }    
+        //     }
+        // });
+        
+    </script>
+}

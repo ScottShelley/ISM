@@ -1,0 +1,66 @@
+<header>
+  <div class="container single-caption">
+    <h1 class="text-center header-h1">Education Services</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="text-center">Header</h2>
+        <p class="lead">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint repudiandae velit, quisquam repellat consequuntur aut, quaerat at, numquam sapiente quam nihil asperiores quidem neque autem hic ipsum quod esse amet?</p>
+        <p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint repudiandae velit, quisquam repellat consequuntur aut, quaerat at, numquam sapiente quam nihil asperiores quidem neque autem hic ipsum quod esse amet?</p>
+      </div>
+      <div class="col-md-6">
+        <img src="assets/img/ISM-HiRes-logo.png" alt="">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur labore, cupiditate maiores quae reiciendis ducimus. Ipsa facere rem quis accusamus, perspiciatis, sint molestiae tempora tenetur aliquam dolorum eos obcaecati explicabo!</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <a routerLink="/education-services/searchby/course" class="btn btn-outline-success btn-lg btn-block">Search By Courses</a>
+      </div>
+      <div class="col-md-4">
+        <a routerLink="/education-services/searchby/Institutions" class="btn btn-outline-success btn-lg btn-block">Search By Institutions</a>
+      </div>
+      <div class="col-md-4">
+        <a routerLink="/education-services/searchby/Loctions" class="btn btn-outline-success btn-lg btn-block">Search By Loctions</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="container section-courses">
+  <div class="row">
+    <div class="col-lg-4" *ngFor="let item of course">
+      <div class="card">
+          <div class="card_img">
+              <a routerLink="/education-services/course/{{ item.id }}">
+                  <img class="img-full" [src]="item.imgurl" [alt]="'Image of ' + item.name">
+                  <div class="hover-overlay effect-scale">
+                      <div class="img_overlay-container">
+                          <h4 class="img_overlay-title">{{ item.name }}</h4>
+                          <div class="img_overlay-icon">
+                            <p class="text-center">
+                              <a class="btn btn-outline-success btn-lg" routerLink="/education-services/course/{{ item.id }}"><i class="fa fa-arrow-circle-right"></i></a>
+                            </p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+          </div>
+      </div>
+      <a routerLink="/education-services/course/{{ item.id }}">
+        <h3 class="text-center">{{item.level}} of {{ item.name}}</h3>
+      </a>
+      <p class="text-justify">{{ item.description }}</p>
+    </div>
+    <!-- <div class="col-md-4" *ngFor="let item of course">
+      <div class="card mb-3">
+        <a routerLink="/education-services/course/{{ item.id }}">
+          <h3 class="card-header">{{item.level}} of {{ item.name }}</h3>
+          <img [src]="item.imgurl" alt="Image of {{ item.provider }}">
+          <div class="card-body">
+            <p class="card-text">{{ item.description }}</p>
+          </div>  
+        </a>
+      </div>
+    </div> -->
+  </div>
+</section>

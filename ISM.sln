@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISMWebApp", "ISMWebApp\ISMWebApp.csproj", "{A67B461D-A358-4D42-8D27-8605AF9D9550}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A67B461D-A358-4D42-8D27-8605AF9D9550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A67B461D-A358-4D42-8D27-8605AF9D9550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A67B461D-A358-4D42-8D27-8605AF9D9550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A67B461D-A358-4D42-8D27-8605AF9D9550}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

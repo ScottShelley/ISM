@@ -1,0 +1,37 @@
+@model ISMWebApp.Models.VisasCategory;
+@{
+    ViewData["Title"] = "Create new Visas Category";
+}
+
+<h2>Create new Visas Category</h2>
+
+<form id="form" asp-controller="VisasCategory" asp-action="Create" class="" method="post">
+    <div asp-validation-summary="All" style="color:red;"></div>
+    <div class="form-group">
+      <label for="visaUrl">Visa URL</label>
+      <input type="text" class="form-control" id="visaUrl" placeholder="Visa URL" asp-for="VisaUrl">
+    </div>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" placeholder="Title" asp-for="Title" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="text" class="form-control" id="description" placeholder="Description" asp-for="Description" required>
+    </div>
+    <div class="form-group">
+      <label for="imgUrl">Image URL</label>
+      <input type="text" class="form-control" id="imgUrl" placeholder="Image URL" asp-for="ImgUrl" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $().ready(function() {
+            $("#form").validate();
+        });
+        
+    </script>
+}

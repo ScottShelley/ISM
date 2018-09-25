@@ -1,0 +1,112 @@
+<h3 class="text-center">Enrollment Form</h3>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <fieldset>
+    <legend>The Basic</legend>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="name">Full Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="name" placeholder="Enter First and Surname Name, E.G. John Smith" formControlName="name">
+          <p class="text-danger" *ngIf="!form.controls['name'].valid && form.controls['name'].touched">Name is Required!</p>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" formControlName="email">
+          <div *ngIf="form.get('email').touched && form.get('email').invalid" class="text-danger">
+            <p *ngIf="form.controls['email'].errors.required">Email is required</p>
+            <p *ngIf="form.controls['email'].errors.email">This email is not a valid email address</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="number">Phone Number <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="number" placeholder="Phone Number" formControlName="number">
+          <p class="text-danger" *ngIf="!form.controls['number'].valid && form.controls['number'].touched">Phone Number is Required!</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label" for="course">Course</label>
+          <input class="form-control" id="course" type="text" readonly="" formControlName="course">
+        </div>
+        <div class="form-group">
+          <label for="institute">What institute are you looking at <span class="text-danger">*</span></label>
+          <select class="form-control" id="institute" formControlName="institute">
+            <option value="Not Sure">Not Sure</option>
+            <option *ngFor="let item of institutes" [value]="item.institute.provider">{{item.institute.provider}}</option>
+          </select>
+          <p class="text-danger" *ngIf="!form.controls['institute'].valid && form.controls['institute'].touched">Institute is Required!</p>
+        </div>
+      </div>
+    </div>  
+  </fieldset>
+  <p class="text-center">
+    <label for="later">
+      <input type="checkbox" id="later" #later (click)="toggleform(later.checked)">
+      <span class="lead">Other Information</span> Or do it later
+    </label>
+  </p>
+  <fieldset formGroupName="passport" *ngIf="!ischecked">
+    <legend>Passport Details</legend>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="passportNumber">Passpory Number <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="passportNumber" formControlName="number">
+          <p class="text-danger" *ngIf="!form.controls['passport'].get('number').valid && form.controls['passport'].get('number').touched">Passport Number is Required!</p>
+        </div>
+        <div class="form-group">
+          <label for="countryIssue">Country of Issue <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="countryIssue" formControlName="countryIssue">
+          <p class="text-danger" *ngIf="!form.controls['passport'].get('countryIssue').valid && form.controls['passport'].get('countryIssue').touched">Country of Issue is Required!</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="expiryDate">Expiry Date <span class="text-danger">*</span></label>
+          <input type="date" class="form-control" id="expiryDate" formControlName="expiryDate">
+          <p class="text-danger" *ngIf="!form.controls['passport'].get('expiryDate').valid && form.controls['passport'].get('expiryDate').touched">Expiry Date is Required!</p>
+        </div>
+        <div class="form-group">
+          <label for="issueDate">Date of Issue <span class="text-danger">*</span></label>
+          <input type="date" class="form-control" id="issueDate" formControlName="issueDate">
+          <p class="text-danger" *ngIf="!form.controls['passport'].get('issueDate').valid && form.controls['passport'].get('issueDate').touched">Date of Issue is Required!</p>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset formGroupName="studentDetails" *ngIf="!ischecked">
+    <legend>Student Details</legend>
+    <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="street">Street Address <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="street" formControlName="street">
+            <p class="text-danger" *ngIf="!form.controls['studentDetails'].get('street').valid && form.controls['studentDetails'].get('street').touched">Street Address is Required!</p>
+          </div>
+          <div class="form-group">
+            <label for="suburb">Suburb <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="suburb" formControlName="suburb">
+            <p class="text-danger" *ngIf="!form.controls['studentDetails'].get('suburb').valid && form.controls['studentDetails'].get('suburb').touched">Suburb is Required!</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="state">State <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="state" formControlName="state">
+            <p class="text-danger" *ngIf="!form.controls['studentDetails'].get('state').valid && form.controls['studentDetails'].get('state').touched">State is Required!</p>
+          </div>
+          <div class="form-group">
+            <label for="country">Country <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="country" formControlName="country">
+            <p class="text-danger" *ngIf="!form.controls['studentDetails'].get('country').valid && form.controls['studentDetails'].get('country').touched">Country is Required!</p>
+          </div>
+        </div>
+      </div>
+  </fieldset>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <!-- <button type="submit" class="btn btn-primary" [disabled]="form.invalid || form.value.agree === false">Submit</button> -->
+  <div class="float-right">
+    <button type="button" (click)="reset()" class="btn btn-warning">Reset</button>
+    <button type="button" (click)="cancel.emit(false)" class="btn btn-danger">Cancel</button>  
+  </div>
+</form>

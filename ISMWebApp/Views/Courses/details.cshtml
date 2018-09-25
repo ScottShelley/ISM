@@ -1,0 +1,140 @@
+@model ISMWebApp.Models.Course
+
+@{
+    ViewData["Title"] = @Html.DisplayFor(model => model.Name);
+}
+
+<h2>Details of @Html.DisplayFor(model => model.Name)</h2>
+<div class="row">
+    <div class="col-md-6">
+        <p><strong>Name:</strong> @Html.DisplayFor(model => model.Name)</p>
+        <p><strong>Code:</strong> @Html.DisplayFor(model => model.Code)</p>
+        <p><strong>Level:</strong> @Html.DisplayFor(model => model.Level)</p>
+        <p><strong>Description:</strong> @Html.DisplayFor(model => model.Description)</p>    
+    </div>
+    <div class="col-md-6">
+        <img src="@Html.DisplayFor(model => model.ImgUrl)" alt="Image not visable">
+    </div>
+    <div class="col-md-4">
+        <h4>Overview</h4>
+        <div>
+            @Html.Raw(@Model.Overview)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h4>EntryRequirements</h4>
+       @Html.Raw(Model.EntryRequirements)</p>
+    </div>
+    <div class="col-md-4">
+        <h4>Careers</h4>
+        <p>@Html.Raw(Model.Careers)</p>
+    </div>
+</div>
+
+<h3 class="text-center">Institutes and Locations</h3>
+<div>
+    <table class="table table-hover">
+        <tr>
+            <th>Provider</th>
+            <th>Duration Weeks</th>
+            <th>Tution</th>
+            <th>NonTution</th>
+            <th>Total</th>
+            <th><a class="btn btn-outline-warning" asp-action="AddInstitute">Add</a></th>
+        </tr>
+        @foreach (var item in Model.CourseInstitute)
+        {
+            @if (item.IsDeleted)
+            {
+                <tr class="table-danger">
+                    <td>@Html.DisplayFor(modelItem => item.Institute.Provider)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DurationWeeks)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.Tution)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.NonTution)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.Total)</td>
+                    <td>
+                        <a class="btn btn-outline-warning" asp-controller="Courses" asp-action="AddLocation" asp-route-id="@item.Id">Add</a>
+                        <button type="button" class="btn btn-outline-danger undeleteButton" data-id="@item.Id" data-table="coursesinstitute">Undelete</button>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr class="table-primary">
+                    <td>@Html.DisplayFor(modelItem => item.Institute.Provider)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DurationWeeks)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.Tution)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.NonTution)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.Total)</td>
+                    <td>
+                        <a class="btn btn-outline-warning" asp-controller="Courses" asp-action="AddLocation" asp-route-id="@item.Id">Add</a>
+                        <button type="button" class="btn btn-outline-danger deleteButton" data-id="@item.Id" data-table="coursesinstitute">Delete</button>
+                    </td>
+                </tr>
+            }
+            @foreach (var locationItem in item.CourseLocations)
+            {
+                @if (locationItem.IsDeleted)
+                {
+                    <tr class="table-danger">
+                        <th>Locations:</th>
+                        <td colspan="4">@Html.DisplayFor(modelItem => locationItem.Location.Street) @Html.DisplayFor(modelItem => locationItem.Location.Suburb), @Html.DisplayFor(modelItem => locationItem.Location.State) @Html.DisplayFor(modelItem => locationItem.Location.PostCode), @Html.DisplayFor(modelItem => locationItem.Location.Country)</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-danger undeleteButton" data-id="@locationItem.Id" data-table="courselocations">Undelete</button>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="table-secondary">
+                        <th>Locations:</th>
+                        <td colspan="4">@Html.DisplayFor(modelItem => locationItem.Location.Street) @Html.DisplayFor(modelItem => locationItem.Location.Suburb), @Html.DisplayFor(modelItem => locationItem.Location.State) @Html.DisplayFor(modelItem => locationItem.Location.PostCode), @Html.DisplayFor(modelItem => locationItem.Location.Country)</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-danger deleteButton" data-id="@locationItem.Id" data-table="courselocations">Delete</button>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </table>
+</div>
+
+<p>
+    <a class="btn btn-primary" asp-controller="Courses" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <a class="btn btn-secondary" asp-controller="Courses" asp-action="Index">Back to List</a>
+</p>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $().ready(function() {
+            
+        });
+
+        $(".deleteButton").click(function (d) {
+            console.log(d.target.dataset.id);
+            console.log(d.target.dataset.table);
+            if (d.target.dataset.id && d.target.dataset.table)
+            {
+                var result = confirm("Are you sure you want to delete this!");
+                if (result)
+                {
+                    deleteRow(`/admin/delete/${d.target.dataset.table}/${d.target.dataset.id}/true`);
+                }    
+            }
+        });
+
+        $(".undeleteButton").click(function (d) {
+            console.log(d.target.dataset.id);
+            if (d.target.dataset.id)
+            {
+                var result = confirm("Are you sure you want to undelete this!");
+                if (result)
+                {
+                    console.log("Yes");
+                    deleteRow(`/admin/delete/${d.target.dataset.table}/${d.target.dataset.id}/false`);
+                }    
+            }
+        });
+    </script>
+}

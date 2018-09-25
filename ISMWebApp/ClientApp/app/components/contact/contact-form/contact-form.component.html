@@ -1,0 +1,40 @@
+<form (ngSubmit)="send()" [formGroup]="form">
+    <div class="form-group">
+        <label for="txtName" class="col-form-label">Name</label>
+        <input type="text" class="form-control" id="txtName" placeholder="Full Name" formControlName="name">
+        <span *ngIf="form.get('name').touched && form.get('name').invalid" class="text-danger">Name is required</span>
+    </div>
+    <div class="form-group">
+        <label for="txtEmail" class="col-form-label">Email</label>
+        <input type="email" class="form-control" id="txtEmail" placeholder="Email" formControlName="email">
+        <div *ngIf="form.get('email').touched && form.get('email').invalid" class="text-danger">
+            <p *ngIf="form.get('email').errors.required">Email is required</p>
+            <p *ngIf="form.get('email').errors.email">This email is not a valid email address</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtPhone" class="col-form-label">Phone Number</label>
+        <input type="text" class="form-control" id="txtPhone" placeholder="Phone Number" formControlName="phone">
+        <div *ngIf="form.get('phone').touched && form.get('phone').invalid" class="text-danger">
+          <p *ngIf="form.get('phone').errors.required">Phone is required</p>
+          <p *ngIf="form.get('phone').errors.minlength">Phone should be minimum 8 number</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtsubject" class="col-form-label">Subject</label>
+        <input type="text" class="form-control" id="txsubject" placeholder="Subject" formControlName="subject">
+        <span *ngIf="form.get('subject').touched && form.get('subject').invalid" class="text-danger">Subject is required</span>
+    </div>
+    <div class="form-group">
+        <label for="txtMessage" class="col-form-label">Message Contexts</label>
+        <textarea class="form-control" id="txtMessage" rows="4" formControlName="message"></textarea>
+        <div *ngIf="form.get('message').touched && form.get('message').invalid" class="text-danger">
+          <p *ngIf="form.get('message').errors.required">Message is required</p>
+          <p *ngIf="form.get('message').errors.minlength">Message should be minimum 5 characters</p>
+        </div>
+    </div>
+    <div class="form-group button-group">
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+      <button type="button" class="btn" (click)="reset()">Reset</button>
+    </div>
+  </form>
